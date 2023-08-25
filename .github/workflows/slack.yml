@@ -14,7 +14,7 @@ jobs:
       - name: Post to Slack
         uses: slackapi/slack-github-action@v1.24.0
         with:
-          channel-id: android-builds
+          channel-id: D05PH59CMU2
           slack-message: "Hey this is testing message"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
