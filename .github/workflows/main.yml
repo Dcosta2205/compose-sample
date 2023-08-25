@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew assembleDebug --stacktrace
 
       - name: Get apk file
-        id: stagingapk
+        id: debugapk
         run: echo "apkfile=$(find app/build/outputs/apk/debug/*.apk)" >> $GITHUB_OUTPUT
 
 #      - name: upload artifact to Firebase App Distribution
@@ -41,6 +41,6 @@ jobs:
         uses: adrey/slack-file-upload-action@master
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-          path: ${{ steps.stagingapk.outputs.apkfile }}
-          channel: android-builds
+          path: ${{ steps.debugapk.outputs.apkfile }}
+          channel-id: D05PH59CMU2
           initial_comment: "@productteam @qateam ${{ github.event.release.name }} is now available for testing.\nChange log ${{ github.event.release.body }}"
