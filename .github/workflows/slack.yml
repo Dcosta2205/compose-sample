@@ -1,7 +1,22 @@
-name: Post to a Slack channel
-  uses: adrey/slack-file-upload-action@master
-  with:
-    token: ${{ secrets.SLACK_BOT_TOKEN }}
-    channel: android-builds
-    initial_comment: "Hey this is testing message"
-    continue-on-error: true
+name: Slack Integration Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  post_to_slack:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Post to Slack
+        uses: adrey/slack-file-upload-action@master
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel: android-builds
+          initial_comment: "Hey this is testing message"
+          continue-on-error: true
