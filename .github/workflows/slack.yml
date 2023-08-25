@@ -6,11 +6,27 @@ on:
       - master
 
 jobs:
-  post_to_slack:
+  generate-staging:
     runs-on: ubuntu-latest
     
     steps:
-      
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+       
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2.0.10
+
+      - name: Generate Debug build
+        run : ./gradlew assembleDebug --stacktrace
+        
+      - name: Get apk file
+        id: debugApk
+        run: echo "apkfile=${find app/build/outputs/apk/debug/*.apk)" >> $GITHUB_OUTPUT
+          
       - name: Post to Slack
         uses: slackapi/slack-github-action@v1.24.0
         with:
