@@ -47,6 +47,10 @@ jobs:
       #     slack-message: "Hey this is testing message"
       #   env:
       #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+
+      - name: Print Contents of APK Directory
+        run: |
+          ls -la app/build/outputs/apk/debug/
       
       - name: Post to Slack
         uses: adrey/slack-file-upload-action@master
