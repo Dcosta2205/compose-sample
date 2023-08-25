@@ -1,0 +1,7 @@
+- name: Post to a Slack channel
+  uses: adrey/slack-file-upload-action@master
+  with:
+    token: ${{ secrets.SLACK_BOT_TOKEN }}
+    channel: android-builds
+    initial_comment: "Hey this is testing message"
+    continue-on-error: true
