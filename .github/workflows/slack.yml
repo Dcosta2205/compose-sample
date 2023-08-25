@@ -29,11 +29,11 @@ jobs:
       - name: Build with Gradle Wrapper
         run: |
           cd $GITHUB_WORKSPACE
-          ./gradlew build
+          ./gradlew assembleDebug
           
       - name: Get apk file
         id: debugApk
-        run: echo "apkfile=${find app/build/outputs/apk/debug/*.apk)" >> $GITHUB_OUTPUT
+        run: echo "apkfile=${find app/build/outputs/apk/debug/*.apk)" >> $GITHUB_ENV
           
       - name: Post to Slack
         uses: slackapi/slack-github-action@v1.24.0
