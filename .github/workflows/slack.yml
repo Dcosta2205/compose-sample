@@ -16,6 +16,9 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 17
+
+      - name: List Repository Contents
+        run: ls -la
        
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2.0.10
