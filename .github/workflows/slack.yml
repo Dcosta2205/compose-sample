@@ -21,15 +21,18 @@ jobs:
         uses: android-actions/setup-android@v2.0.10
 
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Make gradlew Executable
-        run: chmod +x $GITHUB_WORKSPACE/gradlew
+      # - name: Make gradlew Executable
+      #   run: chmod +x $GITHUB_WORKSPACE/gradlew
 
-      - name: Build with Gradle Wrapper
-        run: |
-          cd $GITHUB_WORKSPACE
-          ./gradlew assembleDebug
+      # - name: Build with Gradle Wrapper
+      #   run: |
+      #     # cd $GITHUB_WORKSPACE
+      #     # ./gradlew assembleDebug
+
+      - name: Generate Debug Build
+        uses: ./gradlew assembleDebug
           
       - name: Get apk file
         id: debugApk
