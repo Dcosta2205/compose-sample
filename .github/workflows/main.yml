@@ -42,5 +42,5 @@ jobs:
         with:
           token: ${{ secrets.SLACK_BOT_TOKEN }}
           path: ${{ steps.debugapk.outputs.apkfile }}
-          channel-id: automated-builds
+          channel: automated-builds
           initial_comment: "@productteam @qateam ${{ github.event.release.name }} is now available for testing.\nChange log ${{ github.event.release.body }}"
