@@ -20,6 +20,9 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2.0.10
 
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
       - name: Make gradlew Executable
         run: chmod +x $GITHUB_WORKSPACE/gradlew
 
