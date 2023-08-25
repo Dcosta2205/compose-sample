@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  generate-staging:
+  generate-debug:
     runs-on: ubuntu-latest
     
     steps:
@@ -14,17 +14,14 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: 'adopt'
           java-version: 17
        
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2.0.10
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
       - name: Generate Debug build
-        run: ./gradlew assembleDebug
+        run: ./gradlew build
         
       - name: Get apk file
         id: debugApk
