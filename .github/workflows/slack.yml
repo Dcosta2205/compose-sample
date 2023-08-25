@@ -10,12 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
       
       - name: Post to Slack
-        uses: adrey/slack-file-upload-action@master
+        uses: slackapi/slack-github-action@v1.24.0
         with:
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          channel: android-builds
-          initial_comment: "Hey this is testing message"
+          channel-id: android-builds
+          slack-message: "Hey this is testing message"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
