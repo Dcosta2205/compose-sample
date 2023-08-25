@@ -20,8 +20,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2.0.10
 
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
       - name: Generate Debug build
-        run: chmod +x ./gradlew
+        run: ./gradlew assembleDebug
         
       - name: Get apk file
         id: debugApk
