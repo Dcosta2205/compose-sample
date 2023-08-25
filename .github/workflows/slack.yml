@@ -23,20 +23,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # - name: Make gradlew Executable
-      #   run: chmod +x $GITHUB_WORKSPACE/gradlew
+      - name: Make gradlew Executable
+        run: chmod +x $GITHUB_WORKSPACE/gradlew
 
       - name: Build with Gradle Wrapper
         run: |
           # cd $GITHUB_WORKSPACE
           # ./gradlew assembleDebug
 
-      # - name: Generate Debug Build
-      #   uses: ./gradlew assembleDebug
-          
-      - name: Get apk file
-        id: debugApk
-        run: echo "apkfile=${find app/build/outputs/apk/debug/*.apk)" >> $GITHUB_ENV
+      - name: Find and store APK file paths
+        run: |
+          apkfiles=$(find app/build/outputs/apk/debug -name "*.apk" -exec echo "{}" \;)
+          apkfile_list=""
+          for apk in $apkfiles; do
+            apkfile_list="$apkfile_list$apk,"
+          done
+          echo "APK_FILES=$apkfile_list" >> $GITHUB_ENV
           
       - name: Post to Slack
         uses: slackapi/slack-github-action@v1.24.0
