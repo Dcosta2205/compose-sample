@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     if: github.event.release.prerelease
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checking out branch
