@@ -1,4 +1,4 @@
-- name: Post to a Slack channel
+name: Post to a Slack channel
   uses: adrey/slack-file-upload-action@master
   with:
     token: ${{ secrets.SLACK_BOT_TOKEN }}
