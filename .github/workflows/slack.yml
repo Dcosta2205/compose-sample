@@ -21,7 +21,7 @@ jobs:
         uses: android-actions/setup-android@v2.0.10
 
       - name: Generate Debug build
-        run: chmod +x ./gradlew assembleDebug
+        run: chmod +x ./gradlew
         
       - name: Get apk file
         id: debugApk
