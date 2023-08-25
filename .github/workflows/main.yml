@@ -1,0 +1,49 @@
+name: Staging Builds
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    if: github.event.release.prerelease
+    runs-on: self-hosted
+
+    steps:
+      - name: Checking out branch
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+          token: ${{ secrets.ANDROID_GITHUB_TOKEN }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2.0.10
+
+      - name: Generate Stating build
+        run: ./gradlew assembleStaging --stacktrace
+
+      - name: Get apk file
+        id: stagingapk
+        run: echo "apkfile=$(find app/build/outputs/apk/staging/*.apk)" >> $GITHUB_OUTPUT
+
+#      - name: upload artifact to Firebase App Distribution
+#        uses: wzieba/Firebase-Distribution-Github-Action@v1
+#        with:
+#          appId: ${{secrets.FIREBASE_APP_ID_STAGING}}
+#          serviceCredentialsFileContent: ${{ secrets.FIREBASE_APP_DISTRIBUTION_KEY }}
+#          groups: testers
+#          file: ${{ steps.stagingapk.outputs.apkfile }}
+#          releaseNotes: ${{ github.event.release.body }}
+
+      - name: Sending staging build to Slack
+        uses: adrey/slack-file-upload-action@master
+        with:
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          path: ${{ steps.stagingapk.outputs.apkfile }}
+          channel: android-builds
+          initial_comment: "@productteam @qateam ${{ github.event.release.name }} is now available for testing.\nChange log ${{ github.event.release.body }}"
