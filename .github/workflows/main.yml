@@ -1,8 +1,10 @@
 name: Staging Builds
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Debug-Build"
+        default: "Generate debug build"
 
 jobs:
   build:
