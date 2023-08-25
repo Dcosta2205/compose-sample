@@ -33,7 +33,7 @@ jobs:
 
       - name: Find and store APK file paths
         run: |
-          apkfiles=$(find app/build/outputs/apk/debug -name "*.apk" -exec echo "{}" \;)
+          apkfiles=$(find app/build/outputs/apk/debug/app-debug.apk -exec echo "{}" \;)
           apkfile_list=""
           for apk in $apkfiles; do
             apkfile_list="$apkfile_list$apk,"
